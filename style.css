@@ -63,7 +63,7 @@ input:focus, select:focus {
     background-color: #0056b3;
 }
 
-#creationMessage {
+.display-message{
     margin-top: 20px;
     color: red;
     font-size: 14px;
