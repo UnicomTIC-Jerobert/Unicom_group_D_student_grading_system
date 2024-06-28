@@ -1,0 +1,10 @@
+[
+    {"username":"raja","password":"cHdkMTIz","role":"student"},
+    {"username":"prasanth","password":"cHdkNDU2","role":"teacher"},
+    {"username":"kumar","password":"cHdkNjc4","role":"staff"}
+]
+
+<user>
+    <username>raja</username>
+    <password>pwd123</password>
+</user>

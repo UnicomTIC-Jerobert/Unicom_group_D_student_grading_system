@@ -1,4 +1,4 @@
-const users = [];
+const users = JSON.parse(localStorage.getItem('users')) || [];
 
 // Function to simulate password encryption (for demonstration purposes)
 function encryptPassword(password) {
@@ -21,6 +21,8 @@ document.getElementById('userCreationForm').addEventListener('submit',function(e
     }
 
     users.push({ username, password, role });
+    localStorage.setItem('users',JSON.stringify(users));
+
     document.getElementById('creationMessage').textContent = "User created successfully!";
     document.getElementById('userCreationForm').reset();
    
