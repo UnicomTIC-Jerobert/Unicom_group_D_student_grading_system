@@ -18,8 +18,8 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
     if (user) {
         document.getElementById('loginMessage').textContent = "";
         if (user.role === 'student') {
-            alert("Redirecting to student page...");
-            //window.location.href = 'subject_selection.html';
+            //alert("Redirecting to student page...");
+            window.location.href = 'subject_selection.html';
         } else if (user.role === 'teacher') {
             alert("Redirecting to teacher page...");
             // Implement redirection or further actions for teacher

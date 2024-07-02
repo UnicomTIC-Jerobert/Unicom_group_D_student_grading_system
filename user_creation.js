@@ -1,4 +1,14 @@
 const users = JSON.parse(localStorage.getItem('users')) || [];
+// const users = [{
+//     "username": "raja",
+//     "password": "cHdkMTIz",
+//     "role": "student"
+// },
+// {
+//     "username": "prasanth",
+//     "password": "cHdkMzQ1",
+//     "role": "teacher"
+// }];
 
 // Function to simulate password encryption (for demonstration purposes)
 function encryptPassword(password) {
@@ -6,7 +16,7 @@ function encryptPassword(password) {
 }
 
 // User Creation
-document.getElementById('userCreationForm').addEventListener('submit',function(event){
+document.getElementById('userCreationForm').addEventListener('submit', function (event) {
     event.preventDefault();
 
     let username = document.getElementById('createUsername').value;
@@ -15,17 +25,17 @@ document.getElementById('userCreationForm').addEventListener('submit',function(e
 
     // Check if username already exists
     if (users.find(user => user.username === username)) {
-        
+
         document.getElementById('creationMessage').textContent = "Username already exists.";
         return;
     }
 
     users.push({ username, password, role });
-    localStorage.setItem('users',JSON.stringify(users));
+    localStorage.setItem('users', JSON.stringify(users));
 
     document.getElementById('creationMessage').textContent = "User created successfully!";
     document.getElementById('userCreationForm').reset();
-   
+
 });
 
 
