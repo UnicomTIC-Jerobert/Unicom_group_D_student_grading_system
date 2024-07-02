@@ -4,7 +4,15 @@ let mandatorySubjects = ["Math", "Science", "History", "Geography", "English", "
 
 // Display compulsory subjects on page load
 document.addEventListener('DOMContentLoaded', displayCompulsorySubjects);
+
 // Function to display compulsory subjects
+/*
+- Get 'compulsorySubjects' element from DOM.
+- Clear contents of 'compulsorySubjects' list.
+- For each subject in mandatorySubjects:
+- Create a new list item with the subject as text content.
+- Append the list item to 'compulsorySubjects' list.
+*/
 function displayCompulsorySubjects() {
     let compulsorySubjectsList = document.getElementById('compulsorySubjects');
     compulsorySubjectsList.innerHTML = ""; // Clear the list first
@@ -16,6 +24,17 @@ function displayCompulsorySubjects() {
 }
 
 // Subject selection function
+/*
+- Combine basket1, basket2, basket3 with mandatorySubjects into selectedSubjects array.
+- Find if student with studentId exists in students array.
+- If student exists:
+  - Update subjects property of student to selectedSubjects.
+- If student does not exist:
+  - Create new student object with id as studentId and subjects as selectedSubjects.
+  - Push new student object to students array.
+- Log updated students array.
+- Return "Subjects selected successfully".
+*/
 function selectSubjects(studentId, basket1, basket2, basket3) {
     let selectedSubjects = [basket1, basket2, basket3].concat(mandatorySubjects);
     //console.log(selectedSubjects);
@@ -32,6 +51,14 @@ function selectSubjects(studentId, basket1, basket2, basket3) {
 }
 
 // Form submission event handler
+/*
+Event Handler: onSubmit event of form with id 'subjectForm'
+- Prevent default form submission.
+- Get values of studentId, basket1, basket2, and basket3 from respective form elements.
+- Call selectSubjects function with these values.
+- Update text content of 'message' element to display returned message.
+- Reset form to clear entered values.
+*/
 document.getElementById('subjectForm').addEventListener('submit', function (event) {
     event.preventDefault(); // Prevent form from submitting the default way
 
