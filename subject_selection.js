@@ -1,10 +1,5 @@
 // Array to store students data
-let students = [
-    {
-        id: 'UT01234',
-        subjects: ["Music", "Math", "Science", "History", "Geography", "English", "Physical Education", "Tamil"]
-    }
-];
+let students = [];
 let mandatorySubjects = ["Math", "Science", "History", "Geography", "English", "Physical Education", "Tamil"];
 
 // Display compulsory subjects on page load

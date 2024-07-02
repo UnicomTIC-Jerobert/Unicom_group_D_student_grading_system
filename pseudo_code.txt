@@ -1,0 +1,31 @@
+// Array to store students data
+let students = [];
+let mandatorySubjects = ["Math", "Science", "History", "Geography", "English", "Physical Education", "Tamil"];
+
+// Function to display compulsory subjects
+Function: displayCompulsorySubjects()
+- Get 'compulsorySubjects' element from DOM.
+- Clear contents of 'compulsorySubjects' list.
+- For each subject in mandatorySubjects:
+  - Create a new list item with the subject as text content.
+  - Append the list item to 'compulsorySubjects' list.
+
+// Function for subject selection
+Function: selectSubjects(studentId, basket1, basket2, basket3)
+- Combine basket1, basket2, basket3 with mandatorySubjects into selectedSubjects array.
+- Find if student with studentId exists in students array.
+- If student exists:
+  - Update subjects property of student to selectedSubjects.
+- If student does not exist:
+  - Create new student object with id as studentId and subjects as selectedSubjects.
+  - Push new student object to students array.
+- Log updated students array.
+- Return "Subjects selected successfully".
+
+// Form submission event handler
+Event Handler: onSubmit event of form with id 'subjectForm'
+- Prevent default form submission.
+- Get values of studentId, basket1, basket2, and basket3 from respective form elements.
+- Call selectSubjects function with these values.
+- Update text content of 'message' element to display returned message.
+- Reset form to clear entered values.
