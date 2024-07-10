@@ -1,78 +1,70 @@
-// Array to store students data
-let students = [
-    // {
-    //     id: 'UT01234',
-    //     subjects: ["Music", "Math", "Science", "History", "Geography", "English", "Physical Education", "Tamil"]
-    // }
-];
-let mandatorySubjects = ["Math", "Science", "History", "Geography", "English", "Physical Education", "Tamil"];
+const subjects = {
+    mandatory: ['Math', 'Science', 'English', 'History', 'Geography', 'PE'],
+    basket: {
+        Basket1: ['Art', 'Music', 'Drama'],
+        Basket2: ['Biology', 'Chemistry', 'Physics'],
+        Basket3: ['Economics', 'Business Studies', 'Accounting']
+    }
+};
 
-// Display compulsory subjects on page load
-document.addEventListener('DOMContentLoaded', displayCompulsorySubjects);
+document.addEventListener('DOMContentLoaded', () => {
 
-// Function to display compulsory subjects
-function displayCompulsorySubjects(event) {
-    //console.log(event)
-    let compulsorySubjectsList = document.getElementById('compulsorySubjects');
-    console.log(compulsorySubjectsList)
-    compulsorySubjectsList.innerHTML = ""; // Clear the list first
+    // List mandory subject
+    const mandatorySubjectsUl = document.getElementById('mandatorySubjects');
+    
+    subjects.mandatory.forEach(subject => {
+        const li = document.createElement('li');    //<li></li>
+        li.textContent = subject;                   //<li>Maths</li>
+        mandatorySubjectsUl.appendChild(li);
+    });
 
-    //mandatorySubjects.forEach(createList);
+    const basketSubjectsDiv = document.getElementById('basketSubjects');
+    for (const basketKey in subjects.basket) {
+        const select = document.createElement('select');        //<select></select>
+        select.id = basketKey;                                  //<select id="Basket1"></select>
+        select.required = true;                                 //<select id="Basket1" required=true></select>
 
-    for (let i = 0; i < mandatorySubjects.length; i = i + 1) {
-        createList(mandatorySubjects[i]);
+        const defaultOption = document.createElement('option');     //<option></option>
+        defaultOption.value = '';                                                   //<option value=''></option>
+        defaultOption.textContent = `Select ${basketKey}`; // string interpolation  <option value=''>Select Basket1</option>
+        select.appendChild(defaultOption);
+
+        subjects.basket[basketKey].forEach(subject => {
+            const option = document.createElement('option');        //<option></option>
+            option.value = subject;                                 //<option value='Art'></option>
+            option.textContent = subject;                           //<option value='Art'>Art</option>
+            select.appendChild(option);
+        });
+
+        basketSubjectsDiv.appendChild(select);
     }
 
-    //createList("tamil");
-    function createList(subject) {
-        let listItem = document.createElement('li');    // <li></li>
-        listItem.textContent = subject;                 // <li>Maths</li>
-        compulsorySubjectsList.appendChild(listItem);   // <ul><li>Maths</li></ul>
-    }
-}
+    document.getElementById('subjectSelectionForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const basketSelections = {};
+        for (const basket in subjects.basket) {
+            const selection = document.getElementById(basket).value;
+            if (!selection) {
+                document.getElementById('message').textContent = 'Please select all basket subjects.';
+                return;
+            }
+            basketSelections[basket] = selection;
+        }
 
-// Subject selection function
-function selectSubjects(studentId, basket1, basket2, basket3) {
-    let selectedSubjects = [basket1, basket2, basket3].concat(mandatorySubjects);
-    //console.log(selectedSubjects);
-    let foundStudent = students.find(findStudent);
+        const username = sessionStorage.getItem('loggedInUser');
+        let users = JSON.parse(localStorage.getItem('users'));
+        const userIndex = users.findIndex(user => user.username === username);
+        if (userIndex !== -1) {
+            users[userIndex].subjects = {
+                mandatory: subjects.mandatory,
+                basket: basketSelections
+            };
+            localStorage.setItem('users', JSON.stringify(users));
+            document.getElementById('message').textContent = 'Subjects selected successfully.';
+            setTimeout(() => {
+                window.location.href = 'display_grades.html';
+            }, 1000);
+        }
+    });
 
-    // for (let i = 0; i < students.length; i = i + 1) {
-    //     findStudent(students[i]);
-    // }
-
-    function findStudent(student) {
-        return student.id === studentId
-    }
-
-    if (foundStudent) {
-        foundStudent.subjects = selectedSubjects;
-    } else {
-        students.push({ id: studentId, subjects: selectedSubjects });
-    }
-    console.log(students);
-    return "Subjects selected successfully";
-}
-
-// Form submission event handler
-document.getElementById('subjectForm').addEventListener('submit', submitForm);
-
-function submitForm(event) {
-    event.preventDefault(); // Prevent form from submitting the default way
-
-   // alert("test");
-
-    // Get form values
-    let studentId = document.getElementById('studentId').value;
-    let basket1 = document.getElementById('basket1').value;
-    let basket2 = document.getElementById('basket2').value;
-    let basket3 = document.getElementById('basket3').value;
-
-    // Select subjects and display message
-    let message = selectSubjects(studentId, basket1, basket2, basket3);
-    document.getElementById('message').textContent = message;
-
-    // Clear the form
-    event.target.reset();
-}
-
+});
